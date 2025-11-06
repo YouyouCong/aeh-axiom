@@ -1,0 +1,55 @@
+\documentclass[acmsmall, screen]{acmart}
+\settopmatter{printacmref=false}
+
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{xspace}
+\usepackage{xcolor}
+\usepackage{csquotes}
+
+\AtBeginDocument{%
+  \providecommand\BibTeX{{%
+    Bib\TeX}}}
+
+\renewcommand{\mkbegdispquote}[2]{\itshape}
+
+\setcopyright{none}
+
+\citestyle{acmauthoryear}
+
+\input{defs}
+
+\begin{document}
+
+\title{Axiomatization of Algebraic Effects and Handlers}
+
+\author{Youyou Cong}
+\orcid{0000-0003-2315-6182}
+\affiliation{%
+  \institution{Institute of Science Tokyo}
+  \country{Japan}
+}
+\email{cong@c.titech.ac.jp}
+
+\authorsaddresses{}
+
+\begin{abstract}
+\end{abstract}
+
+% CCS concepts
+
+\keywords{algebraic effects and handlers, axiomatization, CPS translation}
+
+\maketitle
+
+\input{lang}
+
+\input{axiom}
+
+\input{sd}
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{eff}
+
+\end{document}
+\endinput

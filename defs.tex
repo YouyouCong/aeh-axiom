@@ -1,0 +1,35 @@
+\newcommand{\abs}[2]{\lambda #1. \, #2}
+\newcommand{\absp}[2]{(\abs{#1}{#2})}
+\newcommand{\abstwo}[3]{\abs{#1}{\abs{#2}{#3}}}
+\newcommand{\abstwop}[3]{(\abstwo{#1}{#2}{#3})}
+\newcommand{\app}[2]{#1 \ #2}
+\newcommand{\appp}[2]{(\app{#1}{#2})}
+\newcommand{\apptwo}[3]{\app{\app{#1}{#2}}{#3}}
+\newcommand{\ret}[1]{\texttt{ret} \ #1}
+\newcommand{\letin}[3]{\texttt{let} \ #1 = #2 \ \texttt{in} \ #3}
+
+\newcommand{\op}[1]{\texttt{op} \ #1}
+\newcommand{\opp}[2]{(\op{#1})}
+\newcommand{\retcls}[2]{\ret{#1} \, \mapsto \, #2}
+\newcommand{\retclsone}[2]{\{ \retcls{#1}{#2} \}}
+\newcommand{\opcls}[3]{\op{#1} \, #2 \, \mapsto \, #3}
+\newcommand{\opclsone}[3]{\{ \opcls{#1}{#2}{#3} \}}
+\newcommand{\retop}[5]{\{ \retcls{#1}{#2}; \ \opcls{#3}{#4}{#5} \}}
+\newcommand{\handle}[2]{\texttt{handle} \ #1 \ \texttt{with} \ #2}
+\newcommand{\handleretop}[6]{\texttt{handle} \ #1 \ \texttt{with} \ \retop{#2}{#3}{#4}{#5}{#6}}
+\newcommand{\handlep}[6]{(\handle{#1}{#2}{#3}{#4}{#5}{#6})}
+\newcommand{\eret}{e_{\texttt{ret}}}
+\newcommand{\eop}{e_{\texttt{op}}}
+
+\newcommand{\shiftz}[2]{\mathcal{S}_0 #1. \, #2}
+\newcommand{\dollar}[2]{#1 \ \$ \ #2}
+
+\newcommand{\subst}[3]{#1 [#3 / #2]}
+\newcommand{\substtwo}[5]{#1 [#3 / #2, #5 / #4]}
+\newcommand{\fv}[1]{FV(#1)}
+
+\newcommand{\iftext}[1]{\text{if \ #1}}
+\newcommand{\rulename}[1]{\text{(#1)}}
+
+\newenvironment{defn}{
+\[}{\]\vspace{-1mm}}

@@ -1,0 +1,18 @@
+\section{Axioms of Shift0 and Dollar}
+
+\begin{defn}
+\begin{array}{rclll}
+  \app{\absp{x}{e}}{v} & = & 
+    \subst{e}{x}{v} & & \rulename{$\beta_v$} \\
+  \abs{x}{\app{v}{x}} & = & 
+    v & \text{$k \not\in \fv{v}$} & \rulename{$\eta_v$} \\
+  \dollar{v}{\shiftz{k}{e}} & = &
+    \subst{e}{k}{v} & & \rulename{$\beta_{\$}$} \\
+  \shiftz{k}{\dollar{k}{e}} & = &
+    e & \text{$k \notin \fv{e}$} & \rulename{$\eta_{\$}$} \\ 
+  \dollar{v_1}{v_2} & = &
+    \app{v_1}{v_2} & & \rulename{${\$}_v$} \\   
+  \dollar{v}{E[e]} & = &
+    \dollar{\absp{x}{\dollar{v}{E[x]}}}{e} & & \rulename{${\$}_E$}
+\end{array}
+\end{defn}
