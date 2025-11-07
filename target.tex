@@ -1,0 +1,17 @@
+\section{Target}
+
+\begin{defn}
+\begin{array}{llcl}
+  \text{Roots} & R & :: = &
+    \abstwo{K}{H}{A} \mid \app{V}{V} \\
+  \text{Terms} & T & ::= &
+    \apptwo{K}{V}{H} \mid \apptwo{R}{K}{H} \mid
+    \apphand{H}{V}{K} \mid R \\
+  \text{Values} & V & ::= &
+    x \mid \abs{x}{R} \\
+  \text{Continuations} & K & ::= &
+    k \mid \abstwo{x}{h}{T} \\
+  \text{Handlers} & h & ::= &
+    \abstwo{x}{k}{R}
+\end{array}
+\end{defn}

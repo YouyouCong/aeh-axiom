@@ -1,0 +1,21 @@
+\section{CPS Translation}
+
+\begin{defn}
+\begin{array}{rcl}
+  \cpsv{x} & = & x \\
+  \cpsv{\absp{x}{e}} & = & \abs{x}{\cpsc{e}} \\
+  \cpsc{\retp{v}} & = & \abstwo{k}{h}{\apptwo{k}{v}{h}} \\
+  \cpsc{\appp{v_1}{v_2}} & = & \app{\cpsv{v_1}}{\cpsv{v_2}} \\
+  \cpsc{\letinp{x}{e_1}{e_2}} & = & 
+    \abstwo{k}{h}
+           {\apptwo{\cpsc{e_1}}
+                   {\abstwop{x}{h}{\apptwo{\cpsc{e_2}}{k}{h}}}
+                   {h}} \\
+  \cpsc{\opp{v}} & = & 
+    \abstwo{k}{h}{\apptwo{h}{v}{\absp{y}{\apptwo{k}{y}{h}}}} \\
+  \cpsc{\handlep{e}{h}} & = & 
+    \apptwo{\cpsc{e}}
+           {\absp{x}{\cpsc{\eret}}}
+           {\abstwop{x}{k}{\cpsc{\eop}}}
+\end{array}
+\end{defn}

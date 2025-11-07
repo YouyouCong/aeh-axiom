@@ -1,0 +1,26 @@
+\section{DS Translation}
+
+\begin{defn}
+\begin{array}{rcl}
+  \dsr{\abstwop{k}{h}{T}} & = & \dst{T} \\
+  \dsr{\appp{V_1}{V_2}} & = & \app{\dsv{V_1}}{\dsv{V_2}} \\
+  \dst{\apptwop{K}{V}{H}} & = & 
+    \dskh{K}{H}[\ret{\dsv{V}}] \\
+  \dst{\apptwop{R}{K}{H}} & = & 
+    \dskh{K}{H}[\dsr{R}] \\
+  \dst{\apphand{h}{V}{k}} & = &
+    \op{\dsv{V}} \\
+  \dst{\apphand{\abstwop{x}{k}{T_1}}{V}{\abstwop{x}{h}{T_2}}} & = &
+    \dskh{\abstwo{x}{h}{T_2}}{\abstwo{x}{k}{T_1}}[\op{\dsv{V}}] \\
+  \dsv{x} & = & x \\
+  \dsv{\absp{x}{R}} & = & \abs{x}{\dsr{R}} \\
+  \dsk{k} & = & 
+    [] \\
+  \dsk{\abstwop{x}{h}{T}} & = & 
+    \letin{x}{[]}{\dst{T}} \\
+  \dskh{k}{h} & = &
+    [] \\
+  \dskh{\abstwo{x}{h}{T_1}}{\abstwo{x}{k}{T_2}} & = &
+    \handleretop{[]}{x}{\dst{T_1}}{x}{k}{\dst{T_2}}
+\end{array}
+\end{defn}
