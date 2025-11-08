@@ -6,14 +6,14 @@
     \subst{e}{x}{v} &
     \rulename{$\beta_v$} \\
   \abs{x}{\app{v}{x}} & = & 
-    v \hspace{5.8cm} \text{$k \not\in \fv{v}$} &
+    v \hspace{5.81cm} \text{$k \not\in \fv{v}$} &
     \rulename{$\eta_v$} \\
   \handle{\op{v}}{h} & = &
     \substtwo{\eop}{x}{v}{k}{\abs{y}{\handle{\ret{y}}{h}}} &
     \rulename{$\beta_h$} \\
-  % \handleretop{F[\op{v}]}{x}{\eret}{x}{k}{\app{k}{e}} & = &
-  \handle{F[\op{v}]}{\opclsone{x}{k}{\app{k}{e}}} & = &
-    e \hspace{5.8cm} \text{$k \notin \fv{e}$} &
+  % \handleretop{F[\op{v_1}]}{x}{\eret}{x}{r}{\app{r}{v_2}} & = &
+  \handle{F[\op{v_1}]}{\opclsone{x}{r}{\app{r}{v_2}}} & = &
+    \ret{v_2} \hspace{4.95cm} \text{$k \notin \fv{v_2}$} &
     \rulename{$\eta_h$} \\ 
   \handle{\ret{v}}{h} & = &
     \subst{\eret}{x}{v} & 

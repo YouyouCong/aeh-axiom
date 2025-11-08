@@ -3,15 +3,61 @@
 \begin{defn}
 \begin{array}{llcl}
   \text{Roots} & R & :: = &
-    \abstwo{K}{H}{A} \mid \app{V}{V} \\
-  \text{Terms} & T & ::= &
-    \apptwo{K}{V}{H} \mid \apptwo{R}{K}{H} \mid
-    \apphand{H}{V}{K} \mid R \\
+    \abstwo{k}{h}{\Mkh} \mid \Mmt \\
+  \text{Terms} & \Md & ::= &
+    _{(\Delta = \bullet)} \app{V}{V} \mid \\
+    & & \mid &
+    _{(\Delta = \bullet)} \apptwo{\Kmt}{V}{\Hmt} \mid 
+    _{(\Delta = h)} \apptwo{\Kmt}{V}{h} \mid 
+    _{(\Delta = kh)} \apptwo{\Kk}{V}{h} \\
+    & & \mid & 
+    _{(\Delta = \bullet)} \apptwo{R}{\Kmt}{\Hmt} \mid
+    _{(\Delta = h)} \apptwo{R}{\Kmt}{h} \mid
+    _{(\Delta = kh)} \apptwo{R}{\Kk}{h} \\
+    & & \mid & 
+    _{(\Delta = \bullet)} \apphand{\Hmt}{V}{\Kmt} \\
+    _{(\Delta = h)} \apphand{h}{V}{\Kmt} \\
+    _{(\Delta = kh)} \apphand{h}{V}{\Kk} \\
   \text{Values} & V & ::= &
     x \mid \abs{x}{R} \\
   \text{Continuations} & K & ::= &
-    k \mid \abstwo{x}{h}{T} \\
-  \text{Handlers} & h & ::= &
-    \abstwo{x}{k}{R}
+    _{(\Delta = k)} k \\
+    & & \mid &
+    _{(\Delta = \bullet)} \abstwo{x}{h}{R} \mid 
+    _{(\Delta = \bullet)} \abstwo{x}{h}{\Mh} \mid 
+    _{(\Delta = k)} \abstwo{x}{h}{\Mkh} \\
+  \text{Handlers} & H & ::= &
+    _{(\Delta = h)} h \mid
+    _{(\Delta = \bullet)} \abstwo{x}{r}{R}
 \end{array}
 \end{defn}
+
+\endinput
+
+handle
+  let x = op v in e2
+with
+  ...
+
+~>
+
+(\kh. (\kh. h @ v k) (\xh. e2÷ k h) h) K• H•
+
+(\kh. h @ v k) (\xh. e2÷ K• h) H•
+
+H• @ v (\xh. e2÷ K• h)   ... H• @ v Kh
+
+---------------------
+
+handle
+  let x = e1 in op v
+with
+  ...
+
+~>
+
+(\kh. e1÷ (\xh. (\kh. h @ v k) k h) h) K• H•
+
+(\kh. e1÷ (\xh. h @ v k) h) K• H•
+
+e1÷ (\xh. h @ v K•) H•   ... h @ v K•

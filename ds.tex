@@ -2,25 +2,26 @@
 
 \begin{defn}
 \begin{array}{rcl}
-  \dsr{\abstwop{k}{h}{T}} & = & \dst{T} \\
-  \dsr{\appp{V_1}{V_2}} & = & \app{\dsv{V_1}}{\dsv{V_2}} \\
-  \dst{\apptwop{K}{V}{H}} & = & 
+  \dsr{\abstwop{k}{h}{M}} & = & \dsm{M} \\
+  \dsr{\Mmt} & = & \dsm{\Mmt} \\
+  \dsm{\appp{V_1}{V_2}} & = & \app{\dsv{V_1}}{\dsv{V_2}} \\
+  \dsm{\apptwop{K}{V}{H}} & = & 
     \dskh{K}{H}[\ret{\dsv{V}}] \\
-  \dst{\apptwop{R}{K}{H}} & = & 
+  \dsm{\apptwop{R}{K}{H}} & = & 
     \dskh{K}{H}[\dsr{R}] \\
-  \dst{\apphand{h}{V}{k}} & = &
-    \op{\dsv{V}} \\
-  \dst{\apphand{\abstwop{x}{k}{T_1}}{V}{\abstwop{x}{h}{T_2}}} & = &
-    \dskh{\abstwo{x}{h}{T_2}}{\abstwo{x}{k}{T_1}}[\op{\dsv{V}}] \\
+  \dsm{\apphandp{H}{V}{K}} & = &
+    \dskh{K}{H}[\op{\dsv{V}}] \\
   \dsv{x} & = & x \\
   \dsv{\absp{x}{R}} & = & \abs{x}{\dsr{R}} \\
   \dsk{k} & = & 
     [] \\
-  \dsk{\abstwop{x}{h}{T}} & = & 
-    \letin{x}{[]}{\dst{T}} \\
+  \dsk{\abstwop{x}{h}{M}} & = & 
+    \letin{x}{[]}{\dsm{M}} \\
   \dskh{k}{h} & = &
     [] \\
-  \dskh{\abstwo{x}{h}{T_1}}{\abstwo{x}{k}{T_2}} & = &
-    \handleretop{[]}{x}{\dst{T_1}}{x}{k}{\dst{T_2}}
+  \dskh{\Kk}{h} & = &
+    \dsk{K} \\
+  \dskh{\abstwo{x}{h}{R_1}}{\abstwo{x}{r}{R_2}} & = &
+    \handleretop{[]}{x}{\dsr{R_1}}{x}{r}{\dsr{R_2}}
 \end{array}
 \end{defn}
