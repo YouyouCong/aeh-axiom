@@ -2,10 +2,15 @@
 \newcommand{\absp}[2]{(\abs{#1}{#2})}
 \newcommand{\abstwo}[3]{\abs{#1}{\abs{#2}{#3}}}
 \newcommand{\abstwop}[3]{(\abstwo{#1}{#2}{#3})}
+\newcommand{\abspair}[4]{\abs{#1}{\abs{\pair{#2}{#3}}{#4}}}
+\newcommand{\abspairp}[4]{(\abspair{#1}{#2}{#3}{#4})}
 \newcommand{\app}[2]{#1 \ #2}
 \newcommand{\appp}[2]{(\app{#1}{#2})}
 \newcommand{\apptwo}[3]{\app{\app{#1}{#2}}{#3}}
 \newcommand{\apptwop}[3]{(\apptwo{#1}{#2}{#3})}
+\newcommand{\pair}[2]{\langle #1, \, #2 \rangle}
+\newcommand{\apppair}[4]{\app{\app{#1}{#2}}{\pair{#3}{#4}}}
+\newcommand{\apppairp}[4]{(\apppair{#1}{#2}{#3}{#4})}
 \newcommand{\ret}[1]{\texttt{ret} \ #1}
 \newcommand{\retp}[1]{(\ret{#1})}
 \newcommand{\letin}[3]{\texttt{let} \ #1 = #2 \ \texttt{in} \ #3}
@@ -13,6 +18,8 @@
 
 \newcommand{\op}[1]{\texttt{op} \ #1}
 \newcommand{\opp}[1]{(\op{#1})}
+\newcommand{\opcont}[3]{\texttt{op} \ #1 \ \absp{#2}{#3}}
+\newcommand{\opcontp}[3]{(\opcont{#1}{#2}{#3})}
 \newcommand{\retcls}[2]{\ret{#1} \, \mapsto \, #2}
 \newcommand{\retclsone}[2]{\{ \retcls{#1}{#2} \}}
 \newcommand{\opcls}[3]{\op{#1} \, #2 \, \mapsto \, #3}
@@ -21,11 +28,15 @@
 \newcommand{\handle}[2]{\texttt{handle} \ #1 \ \texttt{with} \ #2}
 \newcommand{\handlep}[2]{(\handle{#1}{#2})}
 \newcommand{\handleretop}[6]{\texttt{handle} \ #1 \ \texttt{with} \ \retop{#2}{#3}{#4}{#5}{#6}}
-\newcommand{\eret}{e_{\texttt{ret}}}
-\newcommand{\eop}{e_{\texttt{op}}}
+\newcommand{\eret}{e_r}
+\newcommand{\eop}{e_o}
+\newcommand{\hret}{h_r}
+\newcommand{\hop}{h_o}
 
 \newcommand{\apphand}[3]{#1 \, @ \, #2 \ #3}
 \newcommand{\apphandp}[3]{(\apphand{#1}{#2}{#3})}
+\newcommand{\apphandcont}[5]{#1 \, @ \, #2 \ \absp{#3}{#4} \ #5}
+\newcommand{\apphandcontp}[5]{(\apphandcont{#1}{#2}{#3}{#4}{#5})}
 \newcommand{\Md}{M_\Delta}
 \newcommand{\Mmt}{M_\bullet}
 \newcommand{\Mh}{M_{h}}
@@ -36,6 +47,7 @@
 \newcommand{\Hd}{H_\Delta}
 \newcommand{\Hmt}{H_\bullet}
 \newcommand{\Hh}{H_{h}}
+\newcommand{\kid}{k_{id}}
 
 \newcommand{\shiftz}[2]{\mathcal{S}_0 #1. \, #2}
 \newcommand{\dollar}[2]{#1 \ \$ \ #2}

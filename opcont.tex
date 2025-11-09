@@ -1,0 +1,52 @@
+\section{Operations with Continuation}
+
+\subsection{Language}
+
+\begin{defn}
+\begin{array}{llcl}
+  \text{Computations} & e & :: = &
+    \opcont{v}{y}{e}
+\end{array}
+\end{defn}
+
+\subsection{CPS Translation}
+
+\begin{defn}
+\begin{array}{rcl}
+  \cpsc{\opcontp{v}{y}{e}} & = & 
+    \abstwo{k}{h}{\apphandcont{h}{v}{y}{\cpsc{e}}{k}}
+\end{array}
+\end{defn}
+
+\subsection{Target}
+
+\begin{defn}
+\begin{array}{llcl}
+  \text{Terms} & M & :: = &
+    _{(\Delta = \bullet)} \apphandcont{\Hmt}{V}{y}{R}{\Kmt} \mid
+    _{(\Delta = h)} \apphandcont{h}{V}{y}{R}{\Kmt} \mid
+    _{(\Delta = kh)} \apphandcont{h}{V}{y}{R}{\Kk} \\
+\end{array}
+\end{defn}
+
+\subsection{DS Translation}
+
+\begin{defn}
+\begin{array}{rcl}
+  \dsm{\apphandcontp{H}{V}{y}{R}{K}} & = &
+    \dskh{K}{H}[\opcont{\dsv{V}}{y}{\dsr{R}}]
+\end{array}
+\end{defn}
+
+\subsection{Axioms}
+
+\begin{defn}
+\begin{array}{rcll}
+  \letin{x}{\opcont{v}{y}{e_1}}{e_2} & = &
+    \opcont{v}{y}{\letin{x}{e_1}{e_2}} &
+    \rulename{$let\mathchar`-op$} \\
+  \handle{\opcont{v}{y}{e}}{h} & = &
+    \substtwo{\eop}{x}{v}{k}{\abs{y}{\handle{e}{h}}} &
+    \rulename{$\beta_h$} \\
+\end{array}
+\end{defn}

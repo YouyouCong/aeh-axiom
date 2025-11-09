@@ -1,0 +1,54 @@
+\section{With Explicit Pure Continuation}
+
+\subsection{CPS Translation}
+
+\begin{defn}
+\begin{array}{rcl}
+  \cpsc{\handlep{e}{h}} & = & 
+    \apppair{\cpsc{e}}
+            {\kid}
+            {\abs{x}{\cpsc{\eret}}}
+            {\abstwo{x}{r}{\cpsc{\eop}}}
+\end{array}
+\end{defn}
+
+\subsection{Target}
+
+\begin{defn}
+\begin{array}{llcl}
+  \text{Handlers} & H & ::= &
+    _{(\Delta = h)} h \mid
+    _{(\Delta = \bullet)} \pair{\abstwo{x}{R}}{\abstwo{x}{r}{R}}
+\end{array}
+\end{defn}
+
+\subsection{DS Translation}
+
+\begin{defn}
+\begin{array}{rcl}
+  \dskh{\abstwo{x}{h}{R_1}}{\pair{K}{\abstwo{x}{r}{R_2}}} & = &
+    \handleretop{\dsk{K}}{x}{\dsr{R_1}}{x}{r}{\dsr{R_2}}
+\end{array}
+\end{defn}
+
+\endinput
+
+e ~> \k. \hr. \ho. ...
+
+ret v
+~>
+\k. \hr. \ho. k v+ hr ho
+
+let x = e1 in e2
+~>
+\k. \hr. \ho. e1÷ (\x. \hr. \ho. e2÷ k hr ho) hr ho
+
+op v
+~>
+\k. \hr. \ho. ho @ v+ k hr ho
+
+handle e with h
+~>
+e÷ id (\x. \hr. \ho. er÷) (\x. \r. e÷)
+
+id = \x. \hr. \ho. hr x ho?

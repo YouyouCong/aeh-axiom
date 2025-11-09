@@ -1,4 +1,4 @@
-\section{CPS Translation}
+\subsection{CPS Translation}
 
 \begin{defn}
 \begin{array}{rcl}
@@ -12,7 +12,7 @@
                    {\abstwop{x}{h}{\apptwo{\cpsc{e_2}}{k}{h}}}
                    {h}} \\
   \cpsc{\opp{v}} & = & 
-    \abstwo{k}{h}{\apptwo{h}{v}{\absp{y}{\apptwo{k}{y}{h}}}} \\
+    \abstwo{k}{h}{\apphand{h}{v}{k}} \\
   \cpsc{\handlep{e}{h}} & = & 
     \apptwo{\cpsc{e}}
            {\absp{x}{\cpsc{\eret}}}
@@ -26,4 +26,4 @@ op v (\y. e)
 
 ~>
 
-\kh. h v (\y. e÷ k h)
+\kh. h v+ (\y. e÷ k h)

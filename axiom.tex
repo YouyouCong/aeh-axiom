@@ -1,4 +1,4 @@
-\section{Axioms}
+\subsection{Axioms}
 
 \begin{defn}
 \begin{array}{rcll}
@@ -6,8 +6,11 @@
     \subst{e}{x}{v} &
     \rulename{$\beta_v$} \\
   \abs{x}{\app{v}{x}} & = & 
-    v \hspace{5.81cm} \text{$k \not\in \fv{v}$} &
+    v \hspace{5.7cm} \text{$k \not\in \fv{v}$} &
     \rulename{$\eta_v$} \\
+  \letin{x}{\ret{v}}{e} & = &
+    \subst{e}{x}{v} &
+    \rulename{$let$} \\
   \handle{\op{v}}{h} & = &
     \substtwo{\eop}{x}{v}{k}{\abs{y}{\handle{\ret{y}}{h}}} &
     \rulename{$\beta_h$} \\
