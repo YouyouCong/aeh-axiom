@@ -16,7 +16,11 @@
   \cpsc{\handlep{e}{h}} & = & 
     \apptwo{\cpsc{e}}
            {\absp{x}{\cpsc{\eret}}}
-           {\abstwop{x}{r}{\cpsc{\eop}}}
+           {\abstwop{x}{r}{\cpsc{\eop}}} \\
+  \cpsf{[]} & = &
+    \abs{k}{k} \\
+  \cpsf{\letin{x}{F}{e}} & = &
+    \abs{k}{\app{\cpsf{F}}{\abstwop{x}{h}{\apptwo{\cpsc{e}}{k}{h}}}}
 \end{array}
 \end{defn}
 
@@ -27,3 +31,14 @@ op v (\y. e)
 ~>
 
 \kh. h v+ (\y. e÷ k h)
+
+----------------------
+
+let x = ret v in e
+
+\kh. (\xh. e÷ k h) v+ h
+
+[] ~> \k. k
+let x = F in e ~> \k. F÷ (\xh. e÷ k h)
+
+F[e]÷ = \kh. e÷ (F÷ k) h

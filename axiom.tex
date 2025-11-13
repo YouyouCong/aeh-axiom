@@ -10,19 +10,18 @@
     \rulename{$\eta_v$} \\
   \letin{x}{\ret{v}}{e} & = &
     \subst{e}{x}{v} &
-    \rulename{$let$} \\
-  \handle{\op{v}}{h} & = &
-    \substtwo{\eop}{x}{v}{k}{\abs{y}{\handle{\ret{y}}{h}}} &
+    \rulename{$\beta_{let}$} \\
+  \handle{\op{v}}{\hdef} & = &
+    \substtwo{\eop}{x}{v}{k}{\abs{x}{\eret}} &
     \rulename{$\beta_h$} \\
-  % \handleretop{F[\op{v_1}]}{x}{\eret}{x}{r}{\app{r}{v_2}} & = &
   \handle{F[\op{v_1}]}{\opclsone{x}{r}{\app{r}{v_2}}} & = &
-    F[\ret{v_2}] \hspace{4.32cm} \text{$k \notin \fv{v_2}$} &
+    \letin{x}{F[\ret{v_2}]}{\eret} \hspace{2.6cm} \text{$k \notin \fv{v_2}$} &
     \rulename{$\eta_h$} \\ 
-  \handle{\ret{v}}{h} & = &
+  \handle{\ret{v}}{\hdef} & = &
     \subst{\eret}{x}{v} & 
     \rulename{$h_v$} \\   
-  \handle{F[e]}{h} & = &
-    \handle{e}{\retclsone{x}{\handle{F[\ret{x}]}{h}}} & 
+  \handle{F[e]}{\hdef} & = &
+    \handle{e}{\retclsone{x}{\handle{F[\ret{x}]}{\hdef}}} & 
     \rulename{$h_F$}
 \end{array}
 \end{defn}

@@ -14,6 +14,11 @@
   \end{enumerate}
 \end{lemma}
 
+\begin{lemma}[Commutativity of CPS and Substitution]
+  \label{lem:cpscomp}
+  $\cpsc{F[e]} = \abstwo{k}{h}{\apptwo{\cpsc{e}}{\appp{\cpsf{F}}{k}}{h}}$
+\end{lemma}
+
 \subsubsection{DS Soundness}
 
 \begin{lemma}[DS Soundness]
@@ -92,7 +97,7 @@ By induction on the structure of $e$.
 \begin{proof}
 By cases on axioms, followed by congruence.
 
-\begin{case}[\rulename{$\beta_v$}]
+\begin{case}[$\beta_v$]
 \begin{align*}
   &\eqspace \cpsc{\appp{\absp{x}{e}}{v}} \\
   &= \app{\absp{x}{\cpsc{e}}}{\cpsv{v}} \\
@@ -103,7 +108,16 @@ By cases on axioms, followed by congruence.
 \end{align*}
 \end{case}
 
-\begin{case}[\rulename{$\beta_{let}$}]
+\begin{case}[$\eta_v$]
+\begin{align*}
+  &\eqspace \cpsv{\absp{x}{\app{v}{x}}} \\
+  &= \abs{x}{\cpsv{v}{\cpsv{x}}} \\
+  &= \cpsv{v} 
+  & \text{by \rulename{$\eta_v$}}
+\end{align*}
+\end{case}
+
+\begin{case}[$\beta_{let}$]
 \begin{align*}
   &\eqspace \cpsc{\letin{x}{\ret{v}}{e}} \\
   &= \abstwo{k}{h}
@@ -126,11 +140,124 @@ By cases on axioms, followed by congruence.
 \end{align*}
 \end{case}
 
-\begin{case}[]
+\begin{case}[$\beta_h$]
 \begin{align*}
+  &\eqspace \cpsc{\handlep{\op{v}}{\hdef}} \\
+  &= \apptwo{\abstwop{k}{h}{\apphand{h}{\cpsv{v}}{k}}}
+            {\abstwop{x}{h}{\cpsc{\eret}}}
+            {\abstwop{x}{r}{\cpsc{\eop}}} \\
+  &= \apphand{\abstwop{x}{r}{\cpsc{\eop}}}
+             {\cpsv{v}}
+             {\abstwop{x}{h}{\cpsc{\eret}}}
+  & \text{by \rulename{$\beta_R$}} \\
+  &= \substtwo{\cpsc{\eop}}
+              {x}{\cpsv{v}}
+              {r}{\abs{y}{\apptwo{\abstwop{x}{h}{\cpsc{\eret}}}
+                                 {y}
+                                 {\abstwop{x}{r}{\cpsc{\eop}}}}}
+  & \text{by \rulename{$\beta_h$}} \\
+  &= \substtwo{\cpsc{\eop}}
+              {x}{\cpsv{v}}
+              {r}{\abs{y}
+                      {\substtwo{\cpsc{\eret}}
+                                {x}{y}
+                                {h}{\abstwop{x}{r}{\cpsc{\eop}}}}}
+  & \text{by \rulename{$\beta_{let}$}} \\
+  &= \cpsc{\substtwop{\eop}{x}{v}{r}{\abs{x}{\eret}}}
+  & \text{by Lemma~\ref{lem:cpssubst} and $\alpha$-conversion}
 \end{align*}
 \end{case}
 
+\begin{case}[$\eta_h$]
+\begin{align*}
+  &\eqspace \cpsc{\handlep{F[\op{v_1}]}{\opclsone{x}{r}{\app{r}{v_2}}}} \\
+  &= \apptwo{\abstwop{k}{h}
+                     {\apptwo{\abstwop{k}{h}{\apphandp{h}{\cpsv{v_1}}{k}}}
+                             {\appp{\cpsf{F}}{k}}
+                             {h}}}
+            {\abstwop{x}{h}{\cpsc{\eret}}}
+            {\abstwop{x}{r}{\app{r}{\cpsc{v_2}}}}
+  & \text{by Lemma~\ref{lem:comp}} \\
+  &= \apptwo{\abstwop{k}{h}{\apphandp{h}{\cpsv{v_1}}{\appp{\cpsf{F}}{k}}}}
+            {\abstwop{x}{h}{\cpsc{\eret}}}
+            {\abstwop{x}{r}{\app{r}{\cpsc{v_2}}}}
+  & \text{by \rulename{$\beta_R$}} \\
+  &= \apphand{\abstwop{x}{r}{\app{r}{\cpsc{v_2}}}}
+             {\cpsv{v_1}}
+             {\appp{\cpsf{F}}{\abstwop{x}{h}{\cpsc{\eret}}}}
+  & \text{by \rulename{$\beta_R$}} \\
+  &= \app{\absp{y}
+               {\apptwo{\appp{\cpsf{F}}{\abstwop{x}{h}{\cpsc{\eret}}}}
+                       {y}
+                       {\abstwop{x}{r}{\app{r}{\cpsc{v_2}}}}}}
+         {\cpsv{v_2}}
+  & \text{by \rulename{$\beta_h$}} \\
+  &= \apptwo{\appp{\cpsf{F}}{\abstwop{x}{h}{\cpsc{\eret}}}}
+            {\cpsv{v_2}}
+            {\abstwop{x}{r}{\app{r}{\cpsc{v_2}}}}
+  & \text{by \rulename{$\beta_{let}$}} \\
+  &= \abstwo{k}{h}
+            {\apptwo{\appp{\cpsf{F}}
+                          {\abstwop{x}{h}{\apptwo{\cpsc{\eret}}{k}{h}}}}
+                    {\cpsv{v_2}}
+                    {h}} \\
+  &= \abstwo{k}{h}
+            {\apptwo{\abstwop{k}{h}
+                             {\apptwo{\appp{\cpsf{F}}{k}}{\cpsv{v_2}}{h}}}
+                    {\abstwop{x}{h}{\apptwo{\cpsc{\eret}}{k}{h}}}
+                    {h}} \\
+  &= \abstwo{k}{h}
+            {\apptwo{\abstwop{k}{h}
+                             {\apptwo{\abstwop{k}{h}{\apptwo{k}{\cpsv{v_2}}{h}}}
+                                     {\appp{\cpsf{F}}{k}}
+                                     {h}}}
+                    {\abstwop{x}{h}{\apptwo{\cpsc{\eret}}{k}{h}}}
+                    {h}} \\
+  &= \cpsc{\letinp{x}{F[\ret{v_2}]}{\eret}}
+\end{align*}
+\end{case}
+
+\begin{case}[$h_v$]
+\begin{align*}
+  &\eqspace \cpsc{\handlep{\ret{v}}{\hdef}} \\
+  &= \apptwo{\abstwop{k}{h}{\apptwo{k}{\cpsv{v}}{h}}}
+            {\abstwop{x}{h}{\cpsc{\eret}}}
+            {\abstwop{x}{r}{\cpsc{\eop}}} \\
+  &= \apptwo{\abstwop{x}{h}{\cpsc{\eret}}}
+            {\cpsv{v}}
+            {\abstwop{x}{r}{\cpsc{\eop}}}
+  & \text{by \rulename{$\beta.R$}} \\
+  &= \subst{\cpsc{\eret}}{x}{\cpsv{v}}
+  & \text{by \rulename{$\beta.{let}$}} \\
+  &= \cpsc{\substp{\eret}{x}{v}}
+  & \text{by Lemma~\ref{lem:cpssubst}}
+\end{align*}
+\end{case}
+
+\begin{case}[$h_{let}$]
+\begin{align*}
+  &\eqspace \cpsc{\handlep{\letin{x}{e_1}{e_2}}{\hdef}} \\
+  &= \apptwo{\abstwop{k}{h}
+                     {\apptwo{\cpsc{e_1}}
+                             {\abstwop{x}{h}{\apptwo{\cpsc{e_2}}{k}{h}}}
+                             {h}}}
+            {\abstwop{x}{h}{\cpsc{\eret}}}
+            {\abstwop{x}{r}{\cpsc{\eop}}} \\
+  &= \apptwo{\cpsc{e_1}}
+            {\abstwop{x}{h}{\apptwo{\cpsc{e_2}}
+                                   {\abstwop{x}{h}{\cpsc{\eret}}}
+                                   {h}}}
+            {\abstwop{x}{r}{\cpsc{\eop}}}
+  & \text{by \rulename{$\beta.R$}} \\
+  &= \apptwo{\cpsc{e_1}}
+            {\abstwo{x}{h}{\apptwo{\cpsc{e_2}}
+                                  {\abstwop{x}{h}{\cpsc{\eret}}}
+                                  {\abstwop{x}{r}{\cpsc{\eop}}}}}
+            {\abstwop{x}{r}{\cpsc{\eop}}}
+  & \text{by ???} \\
+  &= \cpsc{\handlep{e_1}{\retclsone{x}{\handle{e_2}{\hdef}}}}
+\end{align*}
+\end{case}
 \end{proof}
 
 \subsubsection{Completeness}

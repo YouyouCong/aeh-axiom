@@ -44,12 +44,12 @@
 \begin{array}{rcll}
   \letin{x}{\opcont{v}{y}{e_1}}{e_2} & = &
     \opcont{v}{y}{\letin{x}{e_1}{e_2}} &
-    \rulename{$let\mathchar`-op$} \\
+    \rulename{$let_{op}$} \\
   \handle{\opcont{v}{y}{e}}{h} & = &
     \substtwo{\eop}{x}{v}{k}{\abs{y}{\handle{e}{h}}} &
     \rulename{$\beta_h$} \\
   \handle{\letin{x}{e_1}{e_2}}{h} & = &
     \handle{e_1}{\retclsone{x}{\handle{e_2}{h}}} & 
-    \rulename{$h\mathchar`-let$}
+    \rulename{$h_{let}$}
 \end{array}
 \end{defn}
