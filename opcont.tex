@@ -48,5 +48,8 @@
   \handle{\opcont{v}{y}{e}}{h} & = &
     \substtwo{\eop}{x}{v}{k}{\abs{y}{\handle{e}{h}}} &
     \rulename{$\beta_h$} \\
+  \handle{\letin{x}{e_1}{e_2}}{h} & = &
+    \handle{e_1}{\retclsone{x}{\handle{e_2}{h}}} & 
+    \rulename{$h\mathchar`-let$}
 \end{array}
 \end{defn}

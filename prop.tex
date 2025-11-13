@@ -1,0 +1,156 @@
+\subsection{Properties}
+
+\subsubsection{CPS Substitution}
+
+\begin{lemma}[Commutativity of CPS and Substitution]
+  \label{lem:cpssubst}
+  \ \\ \vspace{-4mm}
+  \begin{enumerate}
+    \item $\cpsv{\substp{v_1}{x}{v_2}} = 
+           \subst{\cpsv{v_1}}{x}{\cpsv{v_2}}$
+
+    \item $\cpsc{\substp{e_1}{x}{e_2}} = 
+           \subst{\cpsc{e_1}}{x}{\cpsc{e_2}}$
+  \end{enumerate}
+\end{lemma}
+
+\subsubsection{DS Soundness}
+
+\begin{lemma}[DS Soundness]
+  \label{lem:dssound}
+  \ \\ \vspace{-4mm}
+  \begin{enumerate}
+    \item If\, $R_1 = R_2$ in $\lambda$,
+      then $\dsr{R_1} = \dsr{R_2}$ in \lang.
+
+    \item If\, $M_1 = M_2$ in $\lambda$,
+      then $\dsm{M_1} = \dsm{M_2}$ in \lang.
+
+    \item If\, $V_1 = V_2$ in $\lambda$,
+      then $\dsv{V_1} = \dsv{V_2}$ in \lang.
+
+    \item If\, $K_1 = K_2$ in $\lambda$,
+      then $\dsk{K_1}[e] = \dsk{K_2}[e]$ for any $e$ in \lang.
+
+    \item If\, $K_1 = K_2$ and $H_1 = H_2$ in $\lambda$,
+      then $\dskh{K_1}{H_1}[e] = \dskh{K_2}{H_2}[e]$ for any $e$ in \lang.
+  \end{enumerate}
+\end{lemma}
+
+\subsubsection{Round-trip}
+
+\begin{lemma}[Round-trip]
+  \label{lem:round}
+  \ \\ \vspace{-4mm}
+  \begin{enumerate}
+    \item $\dsr{\cpsc{e}} = e$.
+    \item $\dsv{\cpsv{v}} = v$.
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+By induction on the structure of $e$.
+
+\begin{case}[$e = \op{v}$]
+\begin{align*}
+  &\eqspace \dsr{\cpsc{\op{v}}} \\
+  &= \dsr{\abstwo{k}{h}{\apphandp{h}{\cpsv{v}}{k}}}
+  &= \op{\dsv{\cpsv{v}}} \\
+  &= \op{v}
+\end{align*}
+\end{case}
+
+\begin{case}[$e = \handle{e}{h}$]
+\begin{align*}
+  &\eqspace \dsr{\cpsc{\handlep{e}{h}}} \\
+  &= \dsr{\apptwop{\cpsc{e}}
+                  {\abstwop{x}{h}{\cpsc{\eret}}}
+                  {\abstwop{x}{r}{\cpsc{\eop}}}} \\
+  &= \dskh{\abstwo{x}{h}{\cpsc{\eret}}}
+          {\abstwo{x}{r}{\cpsc{\eop}}}[\dsr{\cpsc{e}}] \\
+  &= \handle{\dsr{\cpsc{e}}}
+            {\retop{x}{\dsr{\cpsc{\eret}}}{x}{r}{\dsr{\cpsc{\eop}}}} \\
+  &= \handle{e}{h}
+\end{align*}
+\end{case}
+
+\end{proof}
+
+\subsubsection{Soundness}
+
+\begin{theorem}[Soundness]
+  \ \\ \vspace{-4mm}
+  \begin{enumerate}
+    \item If\, $v_1 = v_2$ in \lang, 
+      then $\cpsv{v_1} = \cpsv{v_2}$ in $\lambda$.
+
+    \item If\, $e_1 = e_2$ in \lang, 
+      then $\cpsc{e_1} = \cpsc{e_2}$ in $\lambda$.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+By cases on axioms, followed by congruence.
+
+\begin{case}[\rulename{$\beta_v$}]
+\begin{align*}
+  &\eqspace \cpsc{\appp{\absp{x}{e}}{v}} \\
+  &= \app{\absp{x}{\cpsc{e}}}{\cpsv{v}} \\
+  &= \subst{\cpsc{e}}{x}{\cpsv{v}} 
+  & \text{by \rulename{$\beta_v$}} \\
+  &= \cpsc{\substp{e}{x}{v}}
+  & \text{by Lemma~\ref{lem:cpssubst}}
+\end{align*}
+\end{case}
+
+\begin{case}[\rulename{$\beta_{let}$}]
+\begin{align*}
+  &\eqspace \cpsc{\letin{x}{\ret{v}}{e}} \\
+  &= \abstwo{k}{h}
+            {\apptwo{\abstwop{k}{h}{\apptwo{k}{\cpsv{v}}{h}}}
+                    {\abstwop{x}{h}{\apptwo{\cpsc{e}}{k}{h}}}
+                    {h}} \\
+  &= \abstwo{k}{h}
+            {\apptwo{\abstwop{x}{h}{\apptwo{\cpsc{e}}{k}{h}}}
+                    {\cpsv{v}}
+                    {h}}
+  & \text{by \rulename{$\beta_R$}} \\
+  &= \abstwo{k}{h}
+            {\subst{\apptwop{\cpsc{e}}{k}{h}}{x}{\cpsv{v}}}
+  & \text{by \rulename{$\beta_{let}$}} \\
+  &= \abstwo{k}{h}
+            {\apptwo{\cpsc{\substp{e}{x}{v}}}{k}{h}}
+  & \text{by Lemma~\ref{lem:cpssubst}} \\
+  &= \cpsc{\substp{e}{x}{v}}
+  & \text{by $\eta_R$}
+\end{align*}
+\end{case}
+
+\begin{case}[]
+\begin{align*}
+\end{align*}
+\end{case}
+
+\end{proof}
+
+\subsubsection{Completeness}
+
+\begin{theorem}[Completeness]
+  \ \\ \vspace{-4mm}
+  \begin{enumerate}
+    \item If \, $\cpsv{v_1} = \cpsv{v_2}$ in $\lambda$,
+      then $v_1 = v_2$ in \lang.
+     
+    \item If \, $\cpsc{e_1} = \cpsc{e_2}$ in $\lambda$,
+      then $e_1 = e_2$ in \lang.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  For computations, we know by Lemma~\ref{lem:dssound} that
+  $\dsr{\cpsc{e_1}} = \dsr{\cpsc{e_2}}$,
+  and by Lemma~\ref{lem:round} that
+  $\dsr{\cpsc{e_i}} = e_i$ for $i = 1, 2$.
+  The statement then follows by transitivity.
+  Similarly for values.
+\end{proof}

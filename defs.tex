@@ -1,13 +1,19 @@
+\newcommand{\lang}{$\lambda_\epsilon$}
+
 \newcommand{\abs}[2]{\lambda #1. \, #2}
 \newcommand{\absp}[2]{(\abs{#1}{#2})}
 \newcommand{\abstwo}[3]{\abs{#1}{\abs{#2}{#3}}}
 \newcommand{\abstwop}[3]{(\abstwo{#1}{#2}{#3})}
+\newcommand{\absthree}[4]{\abs{#1}{\abs{#2}{\abs{#3}{#4}}}}
+\newcommand{\absthreep}[4]{(\absthree{#1}{#2}{#3}{#4})}
 \newcommand{\abspair}[4]{\abs{#1}{\abs{\pair{#2}{#3}}{#4}}}
 \newcommand{\abspairp}[4]{(\abspair{#1}{#2}{#3}{#4})}
 \newcommand{\app}[2]{#1 \ #2}
 \newcommand{\appp}[2]{(\app{#1}{#2})}
 \newcommand{\apptwo}[3]{\app{\app{#1}{#2}}{#3}}
 \newcommand{\apptwop}[3]{(\apptwo{#1}{#2}{#3})}
+\newcommand{\appthree}[4]{\app{\app{\app{#1}{#2}}{#3}}{#4}}
+\newcommand{\appthreep}[4]{(\appthree{#1}{#2}{#3}{#4})}
 \newcommand{\pair}[2]{\langle #1, \, #2 \rangle}
 \newcommand{\apppair}[4]{\app{\app{#1}{#2}}{\pair{#3}{#4}}}
 \newcommand{\apppairp}[4]{(\apppair{#1}{#2}{#3}{#4})}
@@ -53,7 +59,9 @@
 \newcommand{\dollar}[2]{#1 \ \$ \ #2}
 
 \newcommand{\subst}[3]{#1 [#3 / #2]}
+\newcommand{\substp}[3]{(\subst{#1}{#2}{#3})}
 \newcommand{\substtwo}[5]{#1 [#3 / #2, #5 / #4]}
+\newcommand{\substthree}[7]{#1 [#3 / #2, #5 / #4, #7 / #6]}
 \newcommand{\fv}[1]{FV(#1)}
 
 \newcommand{\cpsv}[1]{{#1}^+}
@@ -67,6 +75,7 @@
 
 \newcommand{\iftext}[1]{\text{if \ #1}}
 \newcommand{\rulename}[1]{\text{(#1)}}
+\newcommand{\eqspace}{\hspace{4.1mm}}
 
 \newenvironment{defn}{
 \[}{\]\vspace{-1mm}}

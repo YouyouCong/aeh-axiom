@@ -10,3 +10,4 @@
 *.cut
 *.xdv
 .DS_Store
+tmp.tex

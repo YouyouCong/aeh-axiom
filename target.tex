@@ -32,6 +32,29 @@
 \end{array}
 \end{defn}
 
+\begin{defn}
+\begin{array}{rcll}
+  \appthree{\absthree{x}{k}{h}{M}}{V}{K}{H} & = &
+    \substthree{M}{x}{V}{k}{K}{h}{H} &
+    \rulename{$\beta_v$} \\
+  \abs{x}{\app{V}{x}} & = &
+    V &
+    \rulename{$\eta_v$} \\
+  \apptwo{\abstwop{x}{k}{M}}{V}{H} & = &
+    \substtwo{M}{x}{V}{h}{H} &
+    \rulename{$\beta_{let}$} \\
+  \apptwo{\abstwop{k}{h}{M}}{K}{H} & = & 
+    \substtwo{M}{k}{K}{h}{H} &
+    \rulename{$\beta_{R}$} \\
+  \abstwo{k}{h}{\apptwo{R}{k}{h}} & = &
+    R &
+    \rulename{$\eta_R$} \\
+  \apphand{\absp{x}{r}{M}}{V}{K} & = &
+    \substtwo{M}{x}{V}{r}{\abs{y}{\apptwo{K}{y}{\absp{x}{r}{M}}}} &
+    \rulename{$\beta_{op}$}
+\end{array}
+\end{defn}
+
 \endinput
 
 handle
