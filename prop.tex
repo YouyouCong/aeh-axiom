@@ -142,6 +142,51 @@ By cases on axioms, followed by congruence.
 
 \begin{case}[$\beta_h$]
 \begin{align*}
+  &\eqspace \cpsc{\handlep{F[\op{v}]}{\hdef}} \\
+  &= \apptwo{\abstwop{k}{h}
+                     {\apptwo{\abstwop{k}{h}{\apphand{h}{\cpsv{v}}{k}}}
+                             {\appp{\cpsf{F}}{k}}
+                             {h}}}
+            {\abstwop{x}{h}{\cpsc{\eret}}}
+            {\abstwop{x}{r}{\cpsc{\eop}}} \\
+  &= \apptwo{\abstwop{k}{h}{\apphand{h}{\cpsv{v}}{k}}}
+            {\appp{\cpsf{F}}{\abstwop{x}{h}{\cpsc{\eret}}}}
+            {\abstwop{x}{r}{\cpsc{\eop}}}
+  & \text{by \rulename{$\beta_R$}} \\
+  &= \apphand{\abstwop{x}{r}{\cpsc{\eop}}}
+             {\cpsv{v}}
+             {\appp{\cpsf{F}}{\abstwop{x}{h}{\cpsc{\eret}}}}
+  & \text{by \rulename{$\beta_R$}} \\
+  &= \substtwo{\cpsc{\eop}}
+              {x}{\cpsv{v}}
+              {r}{\abs{y}{\apptwo{\appp{\cpsf{F}}{\abstwop{x}{h}{\cpsc{\eret}}}}
+                                 {y}
+                                 {\abstwop{x}{r}{\cpsc{\eop}}}}}
+  & \text{by \rulename{$\beta_h$}} \\
+  &= \substtwo{\cpsc{\eop}}
+              {x}{\cpsv{v}}
+              {r}{\abs{y}
+                      {\apptwo{\abstwo{k}{h}{\apptwo{k}{y}{h}}}
+                              {\appp{\cpsf{F}}{\appp{\cpsf{F}}{k}}}
+                              {\abstwop{x}{r}{\cpsc{\eop}}}}}
+  & \text{by \rulename{$\beta_R$}} \\
+  &= \substtwo{\cpsc{\eop}}
+              {x}{\cpsv{v}}
+              {r}{\abs{y}
+                      {\apptwo{\abstwo{k}{h}
+                                      {\apptwo{\abstwo{k}{h}{\apptwo{k}{y}{h}}}
+                                              {\appp{\cpsf{F}}{k}}
+                                              {h}}}}}
+                      {\abstwop{x}{h}{\cpsc{\eret}}}
+                      {\abstwop{x}{r}{\cpsc{\eop}}}        
+  & \text{by \rulename{$\beta_R$}} \\
+  &= \cpsc{\substtwop{\eop}{x}{v}{r}{\abs{y}{F[\ret{y}]}}}
+  & \text{by Lemma~\ref{lem:cpssubst}}
+\end{align*}
+\end{case}
+
+\begin{case}[$\beta_h^\prime$]
+\begin{align*}
   &\eqspace \cpsc{\handlep{\op{v}}{\hdef}} \\
   &= \apptwo{\abstwop{k}{h}{\apphand{h}{\cpsv{v}}{k}}}
             {\abstwop{x}{h}{\cpsc{\eret}}}
