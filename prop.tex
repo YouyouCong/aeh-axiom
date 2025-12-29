@@ -14,7 +14,7 @@
   \end{enumerate}
 \end{lemma}
 
-\begin{lemma}[Commutativity of CPS and Substitution]
+\begin{lemma}[Compositionality of CPS]
   \label{lem:cpscomp}
   $\cpsc{F[e]} = \abstwo{k}{h}{\apptwo{\cpsc{e}}{\appp{\cpsf{F}}{k}}{h}}$
 \end{lemma}
@@ -58,8 +58,8 @@ By induction on the structure of $e$.
 
 \begin{case}[$e = \op{v}$]
 \begin{align*}
-  &\eqspace \dsr{\cpsc{\op{v}}} \\
-  &= \dsr{\abstwo{k}{h}{\apphandp{h}{\cpsv{v}}{k}}}
+  &\eqspace \dsr{\cpsc{\opp{v}}} \\
+  &= \dsr{\abstwo{k}{h}{\apphandp{h}{\cpsv{v}}{k}}} \\
   &= \op{\dsv{\cpsv{v}}} \\
   &= \op{v}
 \end{align*}
@@ -166,21 +166,21 @@ By cases on axioms, followed by congruence.
   &= \substtwo{\cpsc{\eop}}
               {x}{\cpsv{v}}
               {r}{\abs{y}
-                      {\apptwo{\abstwo{k}{h}{\apptwo{k}{y}{h}}}
-                              {\appp{\cpsf{F}}{\appp{\cpsf{F}}{k}}}
+                      {\apptwo{\abstwop{k}{h}{\apptwo{k}{y}{h}}}
+                              {\appp{\cpsf{F}}{\abstwop{x}{h}{\cpsc{\eret}}}}
                               {\abstwop{x}{r}{\cpsc{\eop}}}}}
   & \text{by \rulename{$\beta_R$}} \\
   &= \substtwo{\cpsc{\eop}}
               {x}{\cpsv{v}}
               {r}{\abs{y}
-                      {\apptwo{\abstwo{k}{h}
-                                      {\apptwo{\abstwo{k}{h}{\apptwo{k}{y}{h}}}
-                                              {\appp{\cpsf{F}}{k}}
-                                              {h}}}}}
-                      {\abstwop{x}{h}{\cpsc{\eret}}}
-                      {\abstwop{x}{r}{\cpsc{\eop}}}        
+                      {\apptwo{\abstwop{k}{h}
+                                       {\apptwo{\abstwop{k}{h}{\apptwo{k}{y}{h}}}
+                                               {\appp{\cpsf{F}}{k}}
+                                               {h}}}
+                              {\abstwop{x}{h}{\cpsc{\eret}}}
+                              {\abstwop{x}{r}{\cpsc{\eop}}}}}
   & \text{by \rulename{$\beta_R$}} \\
-  &= \cpsc{\substtwop{\eop}{x}{v}{r}{\abs{y}{F[\ret{y}]}}}
+  &= \cpsc{\substtwop{\eop}{x}{v}{r}{\abs{y}{\handle{F[\ret{y}}{h}]}}}
   & \text{by Lemma~\ref{lem:cpssubst}}
 \end{align*}
 \end{case}
@@ -221,44 +221,59 @@ By cases on axioms, followed by congruence.
                              {\appp{\cpsf{F}}{k}}
                              {h}}}
             {\abstwop{x}{h}{\cpsc{\eret}}}
-            {\abstwop{x}{r}{\app{r}{\cpsc{v_2}}}}
-  & \text{by Lemma~\ref{lem:comp}} \\
+            {\abstwop{x}{r}{\app{r}{\cpsv{v_2}}}}
+  & \text{by Lemma~\ref{lem:cpscomp}} \\
   &= \apptwo{\abstwop{k}{h}{\apphandp{h}{\cpsv{v_1}}{\appp{\cpsf{F}}{k}}}}
             {\abstwop{x}{h}{\cpsc{\eret}}}
-            {\abstwop{x}{r}{\app{r}{\cpsc{v_2}}}}
+            {\abstwop{x}{r}{\app{r}{\cpsv{v_2}}}}
   & \text{by \rulename{$\beta_R$}} \\
-  &= \apphand{\abstwop{x}{r}{\app{r}{\cpsc{v_2}}}}
+  &= \apphand{\abstwop{x}{r}{\app{r}{\cpsv{v_2}}}}
              {\cpsv{v_1}}
              {\appp{\cpsf{F}}{\abstwop{x}{h}{\cpsc{\eret}}}}
   & \text{by \rulename{$\beta_R$}} \\
   &= \app{\absp{y}
                {\apptwo{\appp{\cpsf{F}}{\abstwop{x}{h}{\cpsc{\eret}}}}
                        {y}
-                       {\abstwop{x}{r}{\app{r}{\cpsc{v_2}}}}}}
+                       {\abstwop{x}{r}{\app{r}{\cpsv{v_2}}}}}}
          {\cpsv{v_2}}
   & \text{by \rulename{$\beta_h$}} \\
   &= \apptwo{\appp{\cpsf{F}}{\abstwop{x}{h}{\cpsc{\eret}}}}
             {\cpsv{v_2}}
-            {\abstwop{x}{r}{\app{r}{\cpsc{v_2}}}}
+            {\abstwop{x}{r}{\app{r}{\cpsv{v_2}}}}
   & \text{by \rulename{$\beta_{let}$}} \\
-  &= \abstwo{k}{h}
-            {\apptwo{\appp{\cpsf{F}}
-                          {\abstwop{x}{h}{\apptwo{\cpsc{\eret}}{k}{h}}}}
-                    {\cpsv{v_2}}
-                    {h}} \\
-  &= \abstwo{k}{h}
-            {\apptwo{\abstwop{k}{h}
-                             {\apptwo{\appp{\cpsf{F}}{k}}{\cpsv{v_2}}{h}}}
-                    {\abstwop{x}{h}{\apptwo{\cpsc{\eret}}{k}{h}}}
-                    {h}} \\
-  &= \abstwo{k}{h}
-            {\apptwo{\abstwop{k}{h}
-                             {\apptwo{\abstwop{k}{h}{\apptwo{k}{\cpsv{v_2}}{h}}}
-                                     {\appp{\cpsf{F}}{k}}
-                                     {h}}}
-                    {\abstwop{x}{h}{\apptwo{\cpsc{\eret}}{k}{h}}}
-                    {h}} \\
-  &= \cpsc{\letinp{x}{F[\ret{v_2}]}{\eret}}
+  &= \apptwo{\abstwop{k}{h}{\apptwo{k}{\cpsv{v_2}}{h}}}
+            {\appp{\cpsc{F}}{\abstwop{x}{h}{\cpsc{\eret}}}}
+            {\abstwop{x}{r}{\app{r}{\cpsv{v_2}}}}
+  & \text{by \rulename{$\beta.R$}} \\
+  &= \apptwo{\abstwop{k}{h}
+                     {\apptwo{\abstwop{k}{h}{\apptwo{k}{\cpsv{v_2}}{h}}}
+                             {\appp{\cpsc{F}}{k}}
+                             {h}}}
+            {\abstwop{x}{h}{\cpsc{\eret}}}
+            {\abstwop{x}{r}{\app{r}{\cpsv{v_2}}}}
+  & \text{by \rulename{$\beta.R$}} \\
+  &= \cpsc{\handlep{F[\ret{v_2}]}{\opclsone{x}{r}{\app{r}{v_2}}}}
+  % &= \abstwo{k}{h}
+  %           {\apptwo{\appp{\cpsf{F}}
+  %                         {\abstwop{x}{h}{\apptwo{\cpsc{\eret}}{k}{h}}}}
+  %                   {\cpsv{v_2}}
+  %                   {h}}
+  % & \text{by ???} \\
+  % &= \abstwo{k}{h}
+  %           {\apptwo{\abstwop{k}{h}
+  %                            {\apptwo{\appp{\cpsf{F}}{k}}{\cpsv{v_2}}{h}}}
+  %                   {\abstwop{x}{h}{\apptwo{\cpsc{\eret}}{k}{h}}}
+  %                   {h}}
+  % & \text{by \rulename{$\beta.R$}} \\
+  % &= \abstwo{k}{h}
+  %           {\apptwo{\abstwop{k}{h}
+  %                            {\apptwo{\abstwop{k}{h}{\apptwo{k}{\cpsv{v_2}}{h}}}
+  %                                    {\appp{\cpsf{F}}{k}}
+  %                                    {h}}}
+  %                   {\abstwop{x}{h}{\apptwo{\cpsc{\eret}}{k}{h}}}
+  %                   {h}}
+  % & \text{by \rulename{$\beta.R$}} \\
+  % &= \cpsc{\letinp{x}{F[\ret{v_2}]}{\eret}}
 \end{align*}
 \end{case}
 
@@ -295,9 +310,9 @@ By cases on axioms, followed by congruence.
             {\abstwop{x}{r}{\cpsc{\eop}}}
   & \text{by \rulename{$\beta.R$}} \\
   &= \apptwo{\cpsc{e_1}}
-            {\abstwo{x}{h}{\apptwo{\cpsc{e_2}}
-                                  {\abstwop{x}{h}{\cpsc{\eret}}}
-                                  {\abstwop{x}{r}{\cpsc{\eop}}}}}
+            {\abstwop{x}{h}{\apptwo{\cpsc{e_2}}
+                                   {\abstwop{x}{h}{\cpsc{\eret}}}
+                                   {\abstwop{x}{r}{\cpsc{\eop}}}}}
             {\abstwop{x}{r}{\cpsc{\eop}}}
   & \text{by ???} \\
   &= \cpsc{\handlep{e_1}{\retclsone{x}{\handle{e_2}{\hdef}}}}
