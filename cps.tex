@@ -17,10 +17,11 @@
     \apptwo{\cpsc{e}}
            {\absp{x}{\cpsc{\eret}}}
            {\abstwop{x}{r}{\cpsc{\eop}}} \\
+  \ \\
   \cpsf{[]} & = &
     \abs{k}{k} \\
   \cpsf{\letin{x}{F}{e}} & = &
-    \abs{k}{\app{\cpsf{F}}{\abstwop{x}{h}{\apptwo{\cpsc{e}}{k}{h}}}}
+    \abs{k}{\abstwop{x}{h}{\apptwo{\cpsc{e}}{\appp{\cpsf{F}}{k}}{h}}}
 \end{array}
 \end{defn}
 

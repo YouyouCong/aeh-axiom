@@ -19,12 +19,16 @@
     \rulename{$\beta_h^\prime$} \\
   \handle{F[\op{v_1}]}{\opclsone{x}{r}{\app{r}{v_2}}} & = &
     \letin{x}{F[\ret{v_2}]}{\eret} \hspace{2.6cm} \text{$k \notin \fv{v_2}$} &
-    \rulename{$\eta_h$} \\ 
+    \rulename{$\eta_h$} \\
   \handle{\ret{v}}{\hdef} & = &
     \subst{\eret}{x}{v} & 
-    \rulename{$h_v$} \\   
+    \rulename{$h_v$} \\
+  \ \\
   \handle{F[e]}{\hdef} & = &
     \handle{e}{\retclsone{x}{\handle{F[\ret{x}]}{\hdef}}} & 
-    \rulename{$h_F$}
+    \rulename{$h_F$} \\
+  \handle{\letin{x}{e_1}{e_2}}{\hdef} & = &
+    \handle{e_1}{\retclsone{x}{\handle{e_2}{\hdef}}} & 
+    \rulename{$h_{let}$} \\
 \end{array}
 \end{defn}

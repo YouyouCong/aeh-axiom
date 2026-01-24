@@ -19,6 +19,42 @@
   $\cpsc{F[e]} = \abstwo{k}{h}{\apptwo{\cpsc{e}}{\appp{\cpsf{F}}{k}}{h}}$
 \end{lemma}
 
+\begin{proof}
+  By induction on the structure of $F$.
+
+  \begin{case}[$F = \hole$]
+    \begin{align*}
+      &\eqspace \cpsc{e} \\
+      &= \abstwo{k}{h}{\apptwo{\cpsc{e}}{k}{h}} 
+      & \text{by \rulename{$\eta_R$}} \\
+      &= \abstwo{k}{h}{\apptwo{\cpsc{e}}{\appp{\cpsf{\hole}}{k}}{h}}
+    \end{align*}
+  \end{case}
+
+  \begin{case}[$F = \letconp{x}{F}{e_2}$]
+    \begin{align*}
+      &\eqspace \cpsc{\letconp{x}{F}{e_2}[e]} \\
+      &= \cpsf{F[\letin{x}{e}{e_2}]} \\
+      &= \abstwo{k}{h}
+                {\apptwo{\cpsc{\letinp{x}{e}{e_2}}}
+                        {\appp{\cpsf{F}}{k}}
+                        {h}} \\
+      &= \abstwo{k}{h}
+                {\apptwo{\abstwop{k}{h}
+                                 {\apptwo{\cpsc{e}}
+                                         {\abstwop{x}{h}{\apptwo{\cpsc{e_2}}{k}{h}}}
+                                         {h}}}
+                        {\appp{\cpsf{F}}{k}}
+                        {h}} \\
+      &= \abstwo{k}{h}
+                {\apptwo{\cpsc{e}}
+                        {\abstwop{x}{h}{\apptwo{\cpsc{e_2}}{\appp{\cpsf{F}}{k}}{h}}}
+                        {h}} \\
+      &= \abstwo{k}{h}{\apptwo{\cpsc{e}}{\appp{\cpsf{\letconp{x}{F}{e_2}}}{k}}{h}}
+    \end{align*}
+  \end{case}
+\end{proof}
+
 \subsubsection{DS Soundness}
 
 \begin{lemma}[DS Soundness]
@@ -206,7 +242,7 @@ By cases on axioms, followed by congruence.
               {r}{\abs{y}
                       {\substtwo{\cpsc{\eret}}
                                 {x}{y}
-                                {h}{\abstwop{x}{r}{\cpsc{\eop}}}}}
+                                {h}{\abstwo{x}{r}{\cpsc{\eop}}}}}
   & \text{by \rulename{$\beta_{let}$}} \\
   &= \cpsc{\substtwop{\eop}{x}{v}{r}{\abs{x}{\eret}}}
   & \text{by Lemma~\ref{lem:cpssubst} and $\alpha$-conversion}
@@ -291,6 +327,37 @@ By cases on axioms, followed by congruence.
   & \text{by \rulename{$\beta.{let}$}} \\
   &= \cpsc{\substp{\eret}{x}{v}}
   & \text{by Lemma~\ref{lem:cpssubst}}
+\end{align*}
+\end{case}
+
+\begin{case}[$h_F$]
+\begin{align*}
+  &\eqspace \cpsc{\handlep{F[e]}{\hdef}} \\
+  &= \apptwo{\abstwop{k}{h}
+                     {\apptwo{\cpsc{e}}{\appp{\cpsf{F}}{k}}{h}}}
+            {\abstwop{x}{h}{\cpsc{\eret}}}
+            {\abstwop{x}{r}{\cpsc{\eop}}} \\
+  &= \apptwo{\cpsc{e}}
+            {\appp{\cpsf{F}}{\abstwop{x}{h}{\cpsc{\eret}}}}
+            {\abstwop{x}{r}{\cpsc{\eop}}} \\
+  &= \apptwo{\cpsc{e}}
+            {\abstwop{x}{h}
+                     {\apptwo{\appp{\cpsf{F}}{\abstwop{x}{h}{\eret}}}
+                             {x}
+                             {\abstwop{x}{r}{\eop}}}}
+            {\abstwop{x}{r}{\cpsc{\eop}}}
+  & \text{by ???} \\
+  &= \apptwo{\cpsc{e}}
+            {\abstwop{x}{h}
+                     {\apptwo{\abstwop{k}{h}
+                                      {\apptwo{\abstwop{k}{h}{\apptwo{k}{x}{h}}}
+                                              {\appp{\cpsf{F}}{k}}
+                                              {h}}}
+                             {\abstwop{x}{h}{\eret}}
+                             {\abstwop{x}{r}{\eop}}}}
+            {\abstwop{x}{r}{\cpsc{\eop}}}
+  & \text{by \rulename{$\beta_R$}} \\
+  &= \cpsc{\handlep{e}{\retcls{x}{\handle{F[\ret{x}]}{\hdef}}}}
 \end{align*}
 \end{case}
 
