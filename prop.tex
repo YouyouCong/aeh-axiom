@@ -330,6 +330,54 @@ By cases on axioms, followed by congruence.
 \end{align*}
 \end{case}
 
+\begin{case}[$h_{letv}$]
+\begin{align*}
+  &\eqspace \cpsc{\handlep{\letin{x}{\ret{v}}{e}}{\hdef}} \\
+  &= \apptwo{\abstwop{k}{h}
+                     {\apptwo{\abstwop{k}{h}{\apptwo{k}{\cpsv{v}}{h}}}
+                             {\abstwop{x}{h}{\apptwo{\cpsc{e}}{k}{h}}}
+                             {h}}}
+            {\abstwop{x}{h}{\cpsc{\eret}}}
+            {\abstwop{x}{r}{\cpsc{\eop}}} \\
+  &= \apptwo{\abstwop{x}{h}{\apptwo{\cpsc{e}}{\abstwop{x}{h}{\cpsc{\eret}}}{h}}}
+            {\cpsv{v}}
+            {\abstwop{x}{r}{\cpsc{\eop}}}
+  & \text{by \rulename{$\beta_R$}} \\
+  &= \apptwo{\subst{\cpsc{e}}{x}{\cpsv{v}}}
+            {\abstwop{x}{h}{\cpsc{\eret}}}
+            {\abstwop{x}{r}{\cpsc{\eop}}}
+  & \text{by \rulename{$\beta_{let}$}} \\
+  &= \abstwo{k}{h}
+            {\apptwo{\apptwop{\subst{\cpsc{e}}{x}{\cpsv{v}}}
+                             {\abstwop{x}{h}{\cpsc{\eret}}}
+                             {\abstwop{x}{r}{\cpsc{\eop}}}}
+                     {k}
+                     {h}}
+  & \text{by \rulename{$\eta_R$}} \\
+  &= \abstwo{k}{h}
+            {\apptwo{\abstwop{x}{h}
+                             {\apptwo{\apptwop{\cpsc{e}}
+                                              {\abstwop{x}{h}{\cpsc{\eret}}}
+                                              {\abstwop{x}{r}{\cpsc{\eop}}}}
+                                     {k}
+                                     {h}}}
+                    {\cpsv{v}}
+                    {h}}
+  & \text{by \rulename{$\beta_{let}$}} \\
+  &= \abstwo{k}{h}
+            {\apptwo{\abstwop{k}{h}{\apptwo{k}{\cpsv{v}}{h}}}
+                    {\abstwop{x}{h}
+                             {\apptwo{\apptwop{\cpsc{e}}
+                                              {\abstwop{x}{h}{\cpsc{\eret}}}
+                                              {\abstwop{x}{r}{\cpsc{\eop}}}}
+                                     {k}
+                                     {h}}}
+                    {h}}
+  & \text{by \rulename{$\beta_R$}} \\
+  &= \cpsc{\letinp{x}{\ret{v}}{\handle{e}{\hdef}}}
+\end{align*}
+\end{case}
+
 \begin{case}[$h_F$]
 \begin{align*}
   &\eqspace \cpsc{\handlep{F[e]}{\hdef}} \\

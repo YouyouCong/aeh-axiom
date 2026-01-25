@@ -1,12 +1,25 @@
 \subsection{Axioms}
 
+Sources of axioms:
+
+\begin{itemize}
+  \item \rulename{$\beta_h^\prime$}:
+    \textsc{With-Handled-Op} by \citet{karachalias-efficient}
+  \item \rulename{$h_{letv}$}:
+    \textsc{With-LetVal} by \citet{karachalias-efficient}
+  \item \rulename{$h_F$}:
+    $\$_E$ by \citet{materzok-axiomatizing}
+  \item \rulename{$h_{let}$}:
+    \textbf{DH}.$let$ by \citet{sieczkowski-reduction}
+\end{itemize}
+
 \begin{defn}
 \begin{array}{rcll}
   \app{\absp{x}{e}}{v} & = & 
     \subst{e}{x}{v} &
     \rulename{$\beta_v$} \\
   \abs{x}{\app{v}{x}} & = & 
-    v \hspace{5.7cm} \text{$k \not\in \fv{v}$} &
+    v \quad \iftext{$k \not\in \fv{v}$} &
     \rulename{$\eta_v$} \\
   \letin{x}{\ret{v}}{e} & = &
     \subst{e}{x}{v} &
@@ -18,11 +31,14 @@
     \substtwo{\eop}{x}{v}{k}{\abs{x}{\eret}} &
     \rulename{$\beta_h^\prime$} \\
   \handle{F[\op{v_1}]}{\opclsone{x}{r}{\app{r}{v_2}}} & = &
-    \letin{x}{F[\ret{v_2}]}{\eret} \hspace{2.6cm} \text{$k \notin \fv{v_2}$} &
+    \letin{x}{F[\ret{v_2}]}{\eret} \quad \iftext{$k \notin \fv{v_2}$} &
     \rulename{$\eta_h$} \\
   \handle{\ret{v}}{\hdef} & = &
     \subst{\eret}{x}{v} & 
     \rulename{$h_v$} \\
+  \handle{\letin{x}{\ret{v}}{e}}{\hdef} & = &
+    \letin{x}{v}{\handle{e}{\hdef}} &
+    \rulename{$h_{letv}$} \\
   \ \\
   \handle{F[e]}{\hdef} & = &
     \handle{e}{\retclsone{x}{\handle{F[\ret{x}]}{\hdef}}} & 
